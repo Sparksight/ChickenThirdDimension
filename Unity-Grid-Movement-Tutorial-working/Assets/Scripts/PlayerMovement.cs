@@ -201,6 +201,22 @@ public class PlayerMovement : MonoBehaviour
                 moving = true;
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (CanMove(Vector3.up))
+            {
+                targetPosition = transform.position + cameraRotator.transform.up;
+                startPosition = transform.position;
+                moving = true;
+            }
+            else if (CanMoveUp(Vector3.up))
+            {
+                targetPosition = transform.position + cameraRotator.transform.up + Vector3.up;
+                startPosition = transform.position;
+                moving = true;
+            }
+
+        }
     }
 
     // Check if the player can move
@@ -234,6 +250,7 @@ public class PlayerMovement : MonoBehaviour
             // Find a nearby vacant square to push us on to
             Vector3 direction = Vector3.zero;
             Vector3[] directions = { Vector3.forward, Vector3.right, Vector3.back, Vector3.left };
+
             for (int i = 0; i < 4; i++) {
                 if (Physics.OverlapSphere(transform.position + directions[i], 0.1f).Length == 0) {
                     direction = directions[i];
